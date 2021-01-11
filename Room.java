@@ -50,7 +50,5 @@ public class Room {
 			Rectangle rect = tubes.get(i);
 			g.fillRect(rect.x, rect.y, rect.width, rect.height);
 		}
-
-	}
-	
+	}	
 }
