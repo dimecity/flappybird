@@ -16,22 +16,23 @@ public class Flappy extends Canvas implements Runnable, KeyListener{
 	public Bird bird;
 	
 	public Flappy() {
-		Dimension d = new Dimension(Flappy.SCREEN_WIDTH, Flappy.SCREEN_HEIGHT);
-		setPreferredSize(d);
+		setPreferredSize(new Dimension(Flappy.SCREEN_WIDTH, Flappy.SCREEN_HEIGHT));
 		addKeyListener(this);
 		room = new Room(60);
 		bird = new Bird(100, Flappy.SCREEN_HEIGHT/2, room.tubes);
 	}
 		
 	public synchronized void startGame() {
-		if(running) return;
+		if(running) 
+			return;
 		running = true;
 		thread = new Thread(this);
 		thread.start();
 	}
 	
 	public synchronized void gameOver() {
-		if(!running) return;
+		if(!running) 
+			return;
 		running = false;
 		try {
 			thread.join();
@@ -48,25 +49,23 @@ public class Flappy extends Canvas implements Runnable, KeyListener{
 		frame.pack();
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setLocationRelativeTo(null);	
-		frame.setVisible(true);
-		
+		frame.setVisible(true);		
 		flappy.startGame();
 	}	
-
 	
 	@Override
 	public void run() {	
-		long lastTime = System.nanoTime();
+		long lastTime = System.nanoTime(); //Set the render time for the tubes and the bird
 		double nanoSecond = 1000000000 / 60;
 		double delta = 0;
 		while(running) {
 			long now = System.nanoTime();
 			delta += (now - lastTime) / nanoSecond;
 			lastTime = now;
-			while (delta >= 2) {
+			while (delta >= 1) {
 				update();
 				render();
-				delta =  0.8;
+				delta --;
 			}			
 		}
 		gameOver();
@@ -111,11 +110,7 @@ public class Flappy extends Canvas implements Runnable, KeyListener{
 	public void keyReleased(KeyEvent e) {
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			bird.isPressed = false;
-		}	
-		
-	}
-	
-	
-	
+		}			
+	}	
 }	
 
