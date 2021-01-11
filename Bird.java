@@ -1,9 +1,8 @@
 import java.awt.*;
 import java.util.*;
 
-
 public class Bird extends Rectangle {	
-
+	
 	private static final long serialVersionUID = 1L;
 	private int cord = 6; 
 	public boolean isPressed = false;
