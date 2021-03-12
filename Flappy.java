@@ -22,7 +22,7 @@ public class Flappy extends Canvas implements Runnable, KeyListener{
 		bird = new Bird(100, Flappy.SCREEN_HEIGHT/2, room.tubes);
 	}
 		
-	public synchronized void startGame() { 
+	public synchronized void startGame() { //synchronized method allows only 1 thread can access the resource at one time 
 		if(running) return;
 		running = true;
 		thread = new Thread(this);
@@ -30,8 +30,7 @@ public class Flappy extends Canvas implements Runnable, KeyListener{
 	}
 	
 	public synchronized void gameOver() {
-		if(!running) 
-			return;
+		if(!running) return;
 		running = false;
 		try {
 			thread.join();
@@ -55,7 +54,7 @@ public class Flappy extends Canvas implements Runnable, KeyListener{
 	@Override
 	public void run() {	
 		long lastTime = System.nanoTime(); //Set the render time for the tubes and the bird
-		double nanoSecond = 1000000000 / 60;
+		double nanoSecond = 1000000000 / 60;	//this whole method is stupid, can't figure it out just yet 
 		double delta = 0;
 		while(running) {
 			long now = System.nanoTime();
@@ -78,17 +77,17 @@ public class Flappy extends Canvas implements Runnable, KeyListener{
 		}
 		Graphics g = bs.getDrawGraphics();
 		g.setColor(Color.cyan);
-		g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT);
+		g.fillRect(0, 0, SCREEN_WIDTH, SCREEN_HEIGHT); //background 
 		room.render(g);
 		bird.render(g);
 		g.setColor(Color.black);
 		g.setFont(new Font("Calibri",Font.BOLD,19));
-		g.drawString("Score: " + (int)score, 10, 20);
-		g.dispose();
+		g.drawString("Score: " + (int)score, 10, 20);	
+		g.dispose();	
 		bs.show();
 	}
 	
-	private void update() {
+	private void update() {	//update the state of the world and the bird 
 		bird.update();
 		room.update();
 	}
@@ -98,7 +97,7 @@ public class Flappy extends Canvas implements Runnable, KeyListener{
 	}
 
 	@Override
-	public void keyPressed(KeyEvent e) {
+	public void keyPressed(KeyEvent e) {	//up arrow will be the only key in the game 
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			bird.isPressed = true;
 		}	
