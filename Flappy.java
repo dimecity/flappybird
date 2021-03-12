@@ -6,8 +6,8 @@ import javax.swing.JFrame;
 
 public class Flappy extends Canvas implements Runnable, KeyListener{
 	
-	private static final long serialVersionUID = 1L;
-	static final int SCREEN_WIDTH = 700;
+	private static final long serialVersionUID = 1L; //keep eclipse happy 
+	static final int SCREEN_WIDTH = 700;	
 	static final int SCREEN_HEIGHT = 480;
 	private boolean running = false;
 	private Thread thread;
@@ -22,9 +22,8 @@ public class Flappy extends Canvas implements Runnable, KeyListener{
 		bird = new Bird(100, Flappy.SCREEN_HEIGHT/2, room.tubes);
 	}
 		
-	public synchronized void startGame() {
-		if(running) 
-			return;
+	public synchronized void startGame() { 
+		if(running) return;
 		running = true;
 		thread = new Thread(this);
 		thread.start();
